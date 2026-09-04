@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-import plotly.express as px
 from datetime import datetime, time
 
 # Page Configuration & Branding
@@ -27,11 +26,11 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Main Title & Location Banner
+# Title Header & Banner
 st.title("🦷 Wright Dental Clinic — Kansanga")
 st.caption("📍 336C Lukuli Road, Kansanga, Kampala | 24/7 Care | Wheelchair Accessible | Cards & NFC Accepted")
 
-# Clinic Facility Header Image
+# Facility Header Image
 try:
     st.image("clinic_photo.jpg", caption="Wright Dental Clinic — 336C Lukuli Road Facility", use_container_width=True)
 except Exception:
@@ -44,15 +43,15 @@ c1, c2, c3, c4 = st.columns(4)
 with c1:
     st.markdown('<div class="metric-card"><div class="metric-title">Google Rating</div><div class="metric-value">⭐ 4.6 / 5.0</div><div class="metric-sub">41 Verified Reviews</div></div>', unsafe_allow_html=True)
 with c2:
-    st.markdown('<div class="metric-card"><div class="metric-title">Hours of Operation</div><div class="metric-value">🕒 24 / 7</div><div class="metric-sub">Monday – Sunday</div></div>', unsafe_allow_html=True)
+    st.markdown('<div class="metric-card"><div class="metric-title">Operating Hours</div><div class="metric-value">🕒 24 / 7</div><div class="metric-sub">Monday – Sunday</div></div>', unsafe_allow_html=True)
 with c3:
-    st.markdown('<div class="metric-card"><div class="metric-title">Facility Access</div><div class="metric-value">♿ Accessible</div><div class="metric-sub">Wheelchair & Card Ready</div></div>', unsafe_allow_html=True)
+    st.markdown('<div class="metric-card"><div class="metric-title">Facility Standard</div><div class="metric-value">♿ Accessible</div><div class="metric-sub">Wheelchair & Card Ready</div></div>', unsafe_allow_html=True)
 with c4:
-    st.markdown('<div class="metric-card"><div class="metric-title">Emergency Response</div><div class="metric-value">🚨 On-Demand</div><div class="metric-sub">Lukuli Road Desk</div></div>', unsafe_allow_html=True)
+    st.markdown('<div class="metric-card"><div class="metric-title">Emergency Unit</div><div class="metric-value">🚨 On-Demand</div><div class="metric-sub">Lukuli Road Desk</div></div>', unsafe_allow_html=True)
 
 st.write("")
 
-# Navigation Tabs
+# Main Interface Tabs
 tab1, tab2, tab3, tab4 = st.tabs([
     "📅 Patient Intake & Booking", 
     "💰 Treatment Cost Estimator", 
@@ -60,7 +59,7 @@ tab1, tab2, tab3, tab4 = st.tabs([
     "🚨 24/7 Emergency Triage"
 ])
 
-# Tab 1: Booking Form
+# Tab 1: Patient Booking Form
 with tab1:
     st.subheader("Patient Booking & Registration")
     with st.form("booking_form"):
@@ -89,7 +88,7 @@ with tab1:
             else:
                 st.error("Please provide both a Name and Phone Number.")
 
-# Tab 2: Treatment Cost Estimator
+# Tab 2: Interactive Treatment Cost Estimator
 with tab2:
     st.subheader("Interactive Cost Estimator (UGX)")
     col1, col2 = st.columns(2)
@@ -134,15 +133,14 @@ with tab2:
         else:
             st.info("Select options on the left to display cost calculation.")
 
-# Tab 3: Analytics
+# Tab 3: Native Streamlit Analytics Chart
 with tab3:
     st.subheader("Monthly Patient Volume Analytics")
     analytics_df = pd.DataFrame({
-        "Service Category": ["Routine Cleaning", "Pediatric Care", "Teeth Whitening", "Extractions", "Emergency Pain"],
         "Monthly Volume": [180, 110, 95, 60, 85]
-    })
-    fig = px.bar(analytics_df, x="Service Category", y="Monthly Volume", color="Service Category", text_auto=True)
-    st.plotly_chart(fig, use_container_width=True)
+    }, index=["Routine Cleaning", "Pediatric Care", "Teeth Whitening", "Extractions", "Emergency Pain"])
+    
+    st.bar_chart(analytics_df)
 
 # Tab 4: Emergency Protocols
 with tab4:
